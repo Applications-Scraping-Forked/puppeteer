@@ -40,3 +40,25 @@ jobs:
         
       - name: Display contents of input.json
         run: cat input.json
+      - name: action script            
+        run : |            
+            rm -r  node_modules     
+      - name: Check if there are any changes
+        id: verify_diff
+        run: |
+          git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+      - name: Commit
+        if: steps.verify_diff.outputs.changed == 'true'
+        run: |
+          git config --local user.email "achachia2003@yahoo.fr"
+          git config --local user.name "achachia"
+          git config --global http.version HTTP/1.1 
+          git config http.postBuffer 524288000          
+          git add -A
+          git commit -m "Build" -a
+      - name: Push
+        if: steps.verify_diff.outputs.changed == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }} 
