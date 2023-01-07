@@ -39,10 +39,7 @@ jobs:
         run: cat test.pdf
         
       - name: Display contents of input.json
-        run: cat input.json
-      - name: action script            
-        run : |            
-            rm -r  node_modules     
+        run: cat input.json       
       - name: Check if there are any changes
         id: verify_diff
         run: |
