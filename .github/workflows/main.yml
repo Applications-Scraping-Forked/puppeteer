@@ -51,7 +51,7 @@ jobs:
           git config --local user.name "achachia"
           git config --global http.version HTTP/1.1 
           git config http.postBuffer 524288000          
-          git add -A
+          git add input.json
           git commit -m "Build" -a
       - name: Push
         if: steps.verify_diff.outputs.changed == 'true'
